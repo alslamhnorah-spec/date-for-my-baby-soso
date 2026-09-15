@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Little Date ❤️</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  font-family: "Poppins", sans-serif;
+  color: #8d123b;
+  overflow-x: hidden;
+
+  background:
+    repeating-linear-gradient(
+      90deg,
+      #ffffff 0px,
+      #ffffff 38px,
+      rgba(190, 15, 65, 0.07) 39px,
+      rgba(190, 15, 65, 0.07) 42px
+    );
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+}
+
+.hearts {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.heart {
+  position: absolute;
+  bottom: -30px;
+  color: #ffb6c9;
+  opacity: .65;
+  animation: floatHeart linear infinite;
+  filter: drop-shadow(0 0 8px rgba(255, 100, 150, .45));
+}
+
+@keyframes floatHeart {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+
+  15% {
+    opacity: .7;
+  }
+
+  80% {
+    opacity: .6;
+  }
+
+  100% {
+    transform: translateY(-120vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.page {
+  position: relative;
+  z-index: 1;
+}
+
+section {
+  width: min(92%, 650px);
+  margin: auto;
+  padding: 80px 0;
+  text-align: center;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* INTRO */
+
+.intro {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 25px;
+}
+
+.intro h1 {
+  font-family: "DM Serif Display", serif;
+  font-weight: 400;
+  font-size: clamp(2.2rem, 10vw, 4rem);
+  margin-bottom: 35px;
+}
+
+.envelope {
+  width: 250px;
+  height: 165px;
+  position: relative;
+  background: #a90f42;
+  border-radius: 10px;
+  box-shadow: 0 25px 60px rgba(120, 0, 40, .25);
+  margin-bottom: 35px;
+  perspective: 800px;
+}
+
+.envelope::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #d42a5d;
+  clip-path: polygon(0 0, 50% 60%, 100% 0);
+  transform-origin: top;
+  transition: 1s ease;
+  z-index: 3;
+}
+
+.envelope.open::before {
+  transform: rotateX(180deg);
+}
+
+.envelope::after {
+  content: "❤️";
+  position: absolute;
+  font-size: 45px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+.main-btn {
+  padding: 15px 28px;
+  border-radius: 999px;
+  color: white;
+  background: #a90f42;
+  font-size: 14px;
+  box-shadow: 0 10px 30px rgba(169, 15, 66, .3);
+  transition: .3s;
+}
+
+.main-btn:hover {
+  transform: translateY(-3px) scale(1.03);
+}
+
+/* TITLES */
+
+.title {
+  font-family: "DM Serif Display", serif;
+  font-weight: 400;
+  font-size: clamp(2.2rem, 10vw, 4rem);
+  margin-bottom: 15px;
+}
+
+.subtitle {
+  color: #71384b;
+  font-size: 15px;
+  line-height: 1.9;
+}
+
+.script {
+  font-family: "DM Serif Display", serif;
+  font-style: italic;
+  font-size: 2rem;
+}
+
+/* DATE CARDS */
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin-top: 35px;
+}
+
+.card {
+  padding: 25px 10px;
+  background: rgba(255,255,255,.9);
+  border-radius: 22px;
+  border: 1px solid rgba(170, 15, 65, .12);
+  box-shadow: 0 12px 35px rgba(100,0,35,.08);
+  transition: .4s;
+}
+
+.card:hover {
+  transform: translateY(-7px);
+}
+
+.card .emoji {
+  display: block;
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.card strong {
+  font-size: 14px;
+}
+
+/* FLIRTY BOX */
+
+.flirty-box {
+  margin-top: 30px;
+  padding: 30px 22px;
+  background: linear-gradient(
+    145deg,
+    rgba(255,255,255,.96),
+    rgba(255,220,232,.75)
+  );
+  border-radius: 27px;
+  box-shadow: 0 15px 45px rgba(120,0,40,.1);
+  border: 1px solid rgba(180,20,70,.1);
+}
+
+.flirty-box p {
+  font-size: 15px;
+  line-height: 2;
+}
+
+/* RULES */
+
+.rules {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.rule {
+  background: rgba(255,255,255,.92);
+  padding: 22px;
+  border-radius: 20px;
+  text-align: left;
+  box-shadow: 0 10px 30px rgba(100,0,35,.08);
+  transition: .3s;
+}
+
+.rule:hover {
+  transform: translateX(6px);
+}
+
+/* MYSTERY */
+
+.mystery {
+  padding: 40px 20px;
+  background: rgba(255,255,255,.94);
+  border-radius: 30px;
+  box-shadow: 0 20px 55px rgba(120,0,40,.13);
+}
+
+.question {
+  font-family: "DM Serif Display", serif;
+  font-size: 2rem;
+  margin: 30px 0;
+}
+
+.choice-area {
+  min-height: 130px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
+.yes-btn,
+.no-btn {
+  padding: 14px 23px;
+  border-radius: 999px;
+  transition: .25s;
+}
+
+.yes-btn {
+  color: white;
+  background: #a90f42;
+  box-shadow: 0 8px 25px rgba(169,15,66,.25);
+}
+
+.no-btn {
+  background: #eeeeee;
+  color: #555;
+  position: relative;
+}
+
+/* CONFIRMATION */
+
+.confirmation {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.confirm-card {
+  width: 100%;
+  padding: 45px 22px;
+  background: rgba(255,255,255,.96);
+  border-radius: 32px;
+  box-shadow: 0 25px 70px rgba(120,0,40,.15);
+}
+
+.confirm-card h2 {
+  font-family: "DM Serif Display", serif;
+  font-size: clamp(2.5rem, 11vw, 4rem);
+  font-weight: 400;
+  margin-bottom: 15px;
+}
+
+.details {
+  margin: 28px 0;
+  line-height: 2.2;
+}
+
+.final-message {
+  font-family: "DM Serif Display", serif;
+  font-style: italic;
+  font-size: 1.8rem;
+}
+
+/* MUSIC */
+
+.music {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 50;
+}
+
+.music button {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: #a90f42;
+  color: white;
+  font-size: 20px;
+  box-shadow: 0 10px 30px rgba(169,15,66,.35);
+}
+
+/* HEART BURST */
+
+.burst {
+  position: fixed;
+  pointer-events: none;
+  z-index: 100;
+  font-size: 25px;
+  animation: burst 1.5s ease forwards;
+}
+
+@keyframes burst {
+  0% {
+    transform: translate(0,0) scale(.5);
+    opacity: 1;
+  }
+
+  100% {
+    transform:
+      translate(var(--x), var(--y))
+      rotate(var(--r))
+      scale(1.5);
+    opacity: 0;
+  }
+}
+
+.fade {
+  animation: fadeIn 1s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 430px) {
+
+  section {
+    padding: 65px 0;
+  }
+
+  .cards {
+    gap: 10px;
+  }
+
+  .card {
+    padding: 20px 7px;
+  }
+
+  .choice-area {
+    gap: 8px;
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="hearts" id="hearts"></div>
+
+<div class="page">
+
+  <!-- FIRST SCREEN -->
+
+  <section class="intro" id="intro">
+
+    <div class="envelope" id="envelope"></div>
+
+    <h1>💌 You Have a Special Invitation</h1>
+
+    <button class="main-btn" onclick="openInvitation()">
+      Open Your Invitation 🤍
+    </button>
+
+  </section>
+
+
+  <!-- MAIN CONTENT -->
+
+  <main id="mainContent" class="hidden">
+
+    <section class="fade">
+
+      <p class="subtitle">
+        You Are Officially Invited To…
+      </p>
+
+      <h1 class="title">
+        Our Little Date 🖤
+      </h1>
+
+      <p class="subtitle">
+        Yes, you. The person I’d rather spend my time with.
+      </p>
+
+      <div class="cards">
+
+        <div class="card">
+          <span class="emoji">🤍</span>
+          <strong>Thursday</strong>
+        </div>
+
+        <div class="card">
+          <span class="emoji">🏠</span>
+          <strong>My Home</strong>
+        </div>
+
+        <div class="card">
+          <span class="emoji">🍗</span>
+          <strong>KFC</strong>
+        </div>
+
+        <div class="card">
+          <span class="emoji">❤️</span>
+          <strong>Red</strong>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- KFC SECTION -->
+
+    <section>
+
+      <p class="script">
+        First things first…
+      </p>
+
+      <h2 class="title">
+        We’re Eating. 🍗❤️
+      </h2>
+
+      <div class="flirty-box">
+
+        <p>
+          Just a little reminder…<br>
+          You’re not only coming to eat KFC.<br>
+          <strong>You’re coming to eat me up too 👅</strong>
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- DRESS CODE -->
+
+    <section>
+
+      <h2 class="title">
+        THE DRESS CODE ❤️
+      </h2>
+
+      <div class="flirty-box">
+
+        <p>
+          <strong>RED. That’s the rule.</strong>
+          <br><br>
+          I want you wearing red.
+          <br>
+          And yes… even the little secret underneath 👙💋
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- RULES -->
+
+    <section>
+
+      <h2 class="title">
+        Before You Say Yes… 👀
+      </h2>
+
+      <div class="rules">
+
+        <div class="rule">
+          🍗 <strong>Rule #1</strong><br>
+          Come hungry. Very important.
+        </div>
+
+        <div class="rule">
+          ❤️ <strong>Rule #2</strong><br>
+          You are required to let me spoil you. No arguments.
+        </div>
+
+        <div class="rule">
+          😏 <strong>Rule #3</strong><br>
+          No being shy with me. I’m not accepting excuses.
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- MYSTERY -->
+
+    <section>
+
+      <div class="mystery">
+
+        <h2 class="title">
+          There’s Something Else… 👀
+        </h2>
+
+        <button
+          class="main-btn"
+          id="revealBtn"
+          onclick="revealQuestion()">
+          Reveal the Last Message 💌
+        </button>
+
+        <div id="questionArea" class="hidden">
+
+          <div class="question">
+            Will you be my date? 🥹❤️
+          </div>
+
+          <div class="choice-area">
+
+            <button
+              class="yes-btn"
+              onclick="sayYes()">
+              Yes, Of Course ❤️
+            </button>
+
+            <button
+              class="no-btn"
+              id="noBtn"
+              onclick="moveNo()">
+              No
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- FINAL CONFIRMATION -->
+
+  <section
+    id="confirmation"
+    class="confirmation hidden">
+
+    <div class="confirm-card">
+
+      <h2>
+        DATE CONFIRMED. 💌
+      </h2>
+
+      <p class="subtitle">
+        Okay, it’s official.
+        <br>
+        Your Thursday plans are officially booked. ❤️
+      </p>
+
+      <div class="details">
+
+        <strong>Thursday 🤍</strong><br>
+        My Home 🏠<br>
+        KFC 🍗<br>
+        Red Dress Code ❤️<br>
+        Me + You 🖤
+
+      </div>
+
+      <div class="final-message">
+        See you Thursday, baby soso ❤️
+      </div>
+
+    </div>
+
+  </section>
+
+</div>
+
+
+<!-- MUSIC BUTTON -->
+
+<div class="music">
+  <button onclick="toggleMusic()" id="musicBtn">
+    🎵
+  </button>
+</div>
+
+<!-- Put your own MP3 file in the same GitHub folder and name it music.mp3 -->
+<audio id="music" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+
+<script>
+
+/* FLOATING HEARTS */
+
+const heartsContainer =
+  document.getElementById("hearts");
+
+for (let i = 0; i < 40; i++) {
+
+  const heart = document.createElement("div");
+
+  heart.className = "heart";
+
+  heart.innerHTML =
+    Math.random() > .5 ? "♡" : "♥";
+
+  heart.style.left =
+    Math.random() * 100 + "%";
+
+  heart.style.fontSize =
+    (10 + Math.random() * 18) + "px";
+
+  heart.style.animationDuration =
+    (8 + Math.random() * 12) + "s";
+
+  heart.style.animationDelay =
+    Math.random() * 12 + "s";
+
+  heartsContainer.appendChild(heart);
+}
+
+
+/* OPEN INVITATION */
+
+function openInvitation() {
+
+  const envelope =
+    document.getElementById("envelope");
+
+  envelope.classList.add("open");
+
+  createHeartBurst();
+
+  setTimeout(() => {
+
+    document
+      .getElementById("intro")
+      .classList.add("hidden");
+
+    document
+      .getElementById("mainContent")
+      .classList.remove("hidden");
+
+    window.scrollTo(0, 0);
+
+  }, 900);
+}
+
+
+/* REVEAL QUESTION */
+
+function revealQuestion() {
+
+  document
+    .getElementById("revealBtn")
+    .classList.add("hidden");
+
+  document
+    .getElementById("questionArea")
+    .classList.remove("hidden");
+
+  createHeartBurst();
+}
+
+
+/* FUNNY NO BUTTON */
+
+function moveNo() {
+
+  const button =
+    document.getElementById("noBtn");
+
+  const x =
+    (Math.random() * 220) - 110;
+
+  const y =
+    (Math.random() * 130) - 65;
+
+  button.style.transform =
+    `translate(${x}px, ${y}px)`;
+
+  createSmallHeart();
+}
+
+
+/* YES */
+
+function sayYes() {
+
+  createHeartBurst();
+
+  setTimeout(() => {
+
+    document
+      .getElementById("mainContent")
+      .classList.add("hidden");
+
+    document
+      .getElementById("confirmation")
+      .classList.remove("hidden");
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+
+  }, 700);
+}
+
+
+/* BIG HEART BURST */
+
+function createHeartBurst() {
+
+  const symbols = [
+    "❤️",
+    "💗",
+    "💕",
+    "💖",
+    "💘",
+    "✨"
+  ];
+
+  for (let i = 0; i < 30; i++) {
+
+    const heart =
+      document.createElement("div");
+
+    heart.className = "burst";
+
+    heart.innerHTML =
+      symbols[Math.floor(Math.random() * symbols.length)];
+
+    heart.style.left =
+      "50%";
+
+    heart.style.top =
+      "50%";
+
+    heart.style.setProperty(
+      "--x",
+      ((Math.random() * 600) - 300) + "px"
+    );
+
+    heart.style.setProperty(
+      "--y",
+      ((Math.random() * 700) - 350) + "px"
+    );
+
+    heart.style.setProperty(
+      "--r",
+      ((Math.random() * 360) - 180) + "deg"
+    );
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+      heart.remove();
+    }, 1600);
+  }
+}
+
+
+/* SMALL HEART CLICK */
+
+function createSmallHeart() {
+
+  const heart =
+    document.createElement("div");
+
+  heart.className = "burst";
+  heart.innerHTML = "❤️";
+
+  heart.style.left =
+    Math.random() * 80 + 10 + "%";
+
+  heart.style.top =
+    Math.random() * 60 + 20 + "%";
+
+  heart.style.setProperty(
+    "--x",
+    ((Math.random() * 160) - 80) + "px"
+  );
+
+  heart.style.setProperty(
+    "--y",
+    ((Math.random() * 160) - 80) + "px"
+  );
+
+  document.body.appendChild(heart);
+
+  setTimeout(() => {
+    heart.remove();
+  }, 1600);
+}
+
+
+/* MUSIC */
+
+const music =
+  document.getElementById("music");
+
+const musicBtn =
+  document.getElementById("musicBtn");
+
+function toggleMusic() {
+
+  if (music.paused) {
+
+    music.play()
+      .then(() => {
+        musicBtn.innerHTML = "⏸️";
+      })
+      .catch(() => {
+        alert(
+          "Add a file named music.mp3 to your GitHub folder first ❤️"
+        );
+      });
+
+  } else {
+
+    music.pause();
+    musicBtn.innerHTML = "🎵";
+
+  }
+}
+
+</script>
+
+</body>
+</html>
