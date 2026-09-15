@@ -5,901 +5,619 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Our Little Date ❤️</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
 <style>
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  scroll-behavior: smooth;
+    box-sizing: border-box;
 }
 
 body {
-  min-height: 100vh;
-  font-family: "Poppins", sans-serif;
-  color: #8d123b;
-  overflow-x: hidden;
-
-  background:
-    repeating-linear-gradient(
-      90deg,
-      #ffffff 0px,
-      #ffffff 38px,
-      rgba(190, 15, 65, 0.07) 39px,
-      rgba(190, 15, 65, 0.07) 42px
-    );
-}
-
-button {
-  font-family: inherit;
-  cursor: pointer;
-  border: none;
-}
-
-.hearts {
-  position: fixed;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.heart {
-  position: absolute;
-  bottom: -30px;
-  color: #ffb6c9;
-  opacity: .65;
-  animation: floatHeart linear infinite;
-  filter: drop-shadow(0 0 8px rgba(255, 100, 150, .45));
-}
-
-@keyframes floatHeart {
-  0% {
-    transform: translateY(0) rotate(0deg);
-    opacity: 0;
-  }
-
-  15% {
-    opacity: .7;
-  }
-
-  80% {
-    opacity: .6;
-  }
-
-  100% {
-    transform: translateY(-120vh) rotate(360deg);
-    opacity: 0;
-  }
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    background:
+        repeating-linear-gradient(
+            90deg,
+            #ffffff 0px,
+            #ffffff 55px,
+            #fff5f6 55px,
+            #fff5f6 70px
+        );
+    color: #8b1725;
+    overflow-x: hidden;
 }
 
 .page {
-  position: relative;
-  z-index: 1;
+    min-height: 100vh;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 18px;
+    text-align: center;
+    position: relative;
 }
 
-section {
-  width: min(92%, 650px);
-  margin: auto;
-  padding: 80px 0;
-  text-align: center;
+.page.active {
+    display: flex;
+    animation: fadeIn 0.8s ease;
 }
 
-.hidden {
-  display: none !important;
+.content {
+    width: 100%;
+    max-width: 500px;
+    position: relative;
+    z-index: 2;
 }
 
-/* INTRO */
-
-.intro {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 25px;
+h1 {
+    font-size: 38px;
+    margin-bottom: 12px;
 }
 
-.intro h1 {
-  font-family: "DM Serif Display", serif;
-  font-weight: 400;
-  font-size: clamp(2.2rem, 10vw, 4rem);
-  margin-bottom: 35px;
+h2 {
+    font-size: 30px;
+    margin-bottom: 15px;
+}
+
+p {
+    font-family: Arial, sans-serif;
+    line-height: 1.7;
+    color: #69212b;
 }
 
 .envelope {
-  width: 250px;
-  height: 165px;
-  position: relative;
-  background: #a90f42;
-  border-radius: 10px;
-  box-shadow: 0 25px 60px rgba(120, 0, 40, .25);
-  margin-bottom: 35px;
-  perspective: 800px;
+    width: 230px;
+    height: 155px;
+    margin: 25px auto;
+    background: #b51f32;
+    border-radius: 8px;
+    position: relative;
+    box-shadow: 0 15px 35px rgba(160, 20, 40, .25);
+    cursor: pointer;
 }
 
-.envelope::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: #d42a5d;
-  clip-path: polygon(0 0, 50% 60%, 100% 0);
-  transform-origin: top;
-  transition: 1s ease;
-  z-index: 3;
+.envelope:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-left: 115px solid transparent;
+    border-right: 115px solid transparent;
+    border-top: 85px solid #d94859;
 }
 
-.envelope.open::before {
-  transform: rotateX(180deg);
+.heart {
+    position: fixed;
+    color: #ffb6c1;
+    font-size: 18px;
+    animation: floatUp linear infinite;
+    opacity: .7;
+    pointer-events: none;
 }
 
-.envelope::after {
-  content: "❤️";
-  position: absolute;
-  font-size: 45px;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 2;
+button {
+    border: none;
+    padding: 14px 23px;
+    border-radius: 30px;
+    background: #a9162b;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(169,22,43,.25);
+    transition: .25s;
+    margin: 7px;
 }
 
-.main-btn {
-  padding: 15px 28px;
-  border-radius: 999px;
-  color: white;
-  background: #a90f42;
-  font-size: 14px;
-  box-shadow: 0 10px 30px rgba(169, 15, 66, .3);
-  transition: .3s;
+button:hover {
+    transform: scale(1.05);
 }
 
-.main-btn:hover {
-  transform: translateY(-3px) scale(1.03);
+button:active {
+    transform: scale(.96);
 }
 
-/* TITLES */
-
-.title {
-  font-family: "DM Serif Display", serif;
-  font-weight: 400;
-  font-size: clamp(2.2rem, 10vw, 4rem);
-  margin-bottom: 15px;
-}
-
-.subtitle {
-  color: #71384b;
-  font-size: 15px;
-  line-height: 1.9;
-}
-
-.script {
-  font-family: "DM Serif Display", serif;
-  font-style: italic;
-  font-size: 2rem;
-}
-
-/* DATE CARDS */
-
-.cards {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
-  margin-top: 35px;
+.music {
+    position: fixed;
+    top: 18px;
+    right: 18px;
+    z-index: 20;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    padding: 0;
+    font-size: 23px;
+    display: none;
 }
 
 .card {
-  padding: 25px 10px;
-  background: rgba(255,255,255,.9);
-  border-radius: 22px;
-  border: 1px solid rgba(170, 15, 65, .12);
-  box-shadow: 0 12px 35px rgba(100,0,35,.08);
-  transition: .4s;
+    background: rgba(255,255,255,.9);
+    border: 1px solid #ffd2d8;
+    border-radius: 22px;
+    padding: 22px;
+    margin: 14px 0;
+    box-shadow: 0 10px 30px rgba(150,20,40,.08);
 }
 
-.card:hover {
-  transform: translateY(-7px);
+.date-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 22px 0;
 }
 
-.card .emoji {
-  display: block;
-  font-size: 32px;
-  margin-bottom: 10px;
+.date-card {
+    background: #fff;
+    padding: 18px 10px;
+    border-radius: 18px;
+    border: 1px solid #ffd0d7;
+    font-family: Arial, sans-serif;
 }
 
-.card strong {
-  font-size: 14px;
-}
-
-/* FLIRTY BOX */
-
-.flirty-box {
-  margin-top: 30px;
-  padding: 30px 22px;
-  background: linear-gradient(
-    145deg,
-    rgba(255,255,255,.96),
-    rgba(255,220,232,.75)
-  );
-  border-radius: 27px;
-  box-shadow: 0 15px 45px rgba(120,0,40,.1);
-  border: 1px solid rgba(180,20,70,.1);
-}
-
-.flirty-box p {
-  font-size: 15px;
-  line-height: 2;
-}
-
-/* RULES */
-
-.rules {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  margin-top: 30px;
+.flirty {
+    font-size: 18px;
+    font-weight: bold;
+    color: #9b1428;
 }
 
 .rule {
-  background: rgba(255,255,255,.92);
-  padding: 22px;
-  border-radius: 20px;
-  text-align: left;
-  box-shadow: 0 10px 30px rgba(100,0,35,.08);
-  transition: .3s;
+    text-align: left;
+    margin: 12px 0;
+    padding: 15px;
+    background: #fff5f6;
+    border-radius: 15px;
+    font-family: Arial, sans-serif;
 }
 
-.rule:hover {
-  transform: translateX(6px);
+.yes {
+    background: #b3132b;
 }
 
-/* MYSTERY */
-
-.mystery {
-  padding: 40px 20px;
-  background: rgba(255,255,255,.94);
-  border-radius: 30px;
-  box-shadow: 0 20px 55px rgba(120,0,40,.13);
+.no {
+    background: #777;
+    position: relative;
 }
 
-.question {
-  font-family: "DM Serif Display", serif;
-  font-size: 2rem;
-  margin: 30px 0;
+.final {
+    font-size: 22px;
+    font-weight: bold;
 }
 
-.choice-area {
-  min-height: 130px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 15px;
+.hidden {
+    display: none;
 }
 
-.yes-btn,
-.no-btn {
-  padding: 14px 23px;
-  border-radius: 999px;
-  transition: .25s;
-}
-
-.yes-btn {
-  color: white;
-  background: #a90f42;
-  box-shadow: 0 8px 25px rgba(169,15,66,.25);
-}
-
-.no-btn {
-  background: #eeeeee;
-  color: #555;
-  position: relative;
-}
-
-/* CONFIRMATION */
-
-.confirmation {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-}
-
-.confirm-card {
-  width: 100%;
-  padding: 45px 22px;
-  background: rgba(255,255,255,.96);
-  border-radius: 32px;
-  box-shadow: 0 25px 70px rgba(120,0,40,.15);
-}
-
-.confirm-card h2 {
-  font-family: "DM Serif Display", serif;
-  font-size: clamp(2.5rem, 11vw, 4rem);
-  font-weight: 400;
-  margin-bottom: 15px;
-}
-
-.details {
-  margin: 28px 0;
-  line-height: 2.2;
-}
-
-.final-message {
-  font-family: "DM Serif Display", serif;
-  font-style: italic;
-  font-size: 1.8rem;
-}
-
-/* MUSIC */
-
-.music {
-  position: fixed;
-  right: 18px;
-  bottom: 18px;
-  z-index: 50;
-}
-
-.music button {
-  width: 54px;
-  height: 54px;
-  border-radius: 50%;
-  background: #a90f42;
-  color: white;
-  font-size: 20px;
-  box-shadow: 0 10px 30px rgba(169,15,66,.35);
-}
-
-/* HEART BURST */
-
-.burst {
-  position: fixed;
-  pointer-events: none;
-  z-index: 100;
-  font-size: 25px;
-  animation: burst 1.5s ease forwards;
-}
-
-@keyframes burst {
-  0% {
-    transform: translate(0,0) scale(.5);
-    opacity: 1;
-  }
-
-  100% {
-    transform:
-      translate(var(--x), var(--y))
-      rotate(var(--r))
-      scale(1.5);
+#youtubePlayer {
+    position: fixed;
+    width: 1px;
+    height: 1px;
+    left: -10px;
+    bottom: -10px;
     opacity: 0;
-  }
-}
-
-.fade {
-  animation: fadeIn 1s ease;
+    pointer-events: none;
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(25px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-@media (max-width: 430px) {
+@keyframes floatUp {
+    from {
+        transform: translateY(110vh) rotate(0deg);
+    }
+    to {
+        transform: translateY(-15vh) rotate(360deg);
+    }
+}
 
-  section {
-    padding: 65px 0;
-  }
-
-  .cards {
-    gap: 10px;
-  }
-
-  .card {
-    padding: 20px 7px;
-  }
-
-  .choice-area {
-    gap: 8px;
-  }
-
+@keyframes pop {
+    0% { transform: scale(.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
 }
 </style>
 </head>
 
 <body>
 
-<div class="hearts" id="hearts"></div>
-
-<div class="page">
-
-  <!-- FIRST SCREEN -->
-
-  <section class="intro" id="intro">
-
-    <div class="envelope" id="envelope"></div>
-
-    <h1>💌 You Have a Special Invitation</h1>
-
-    <button class="main-btn" onclick="openInvitation()">
-      Open Your Invitation 🤍
-    </button>
-
-  </section>
-
-
-  <!-- MAIN CONTENT -->
-
-  <main id="mainContent" class="hidden">
-
-    <section class="fade">
-
-      <p class="subtitle">
-        You Are Officially Invited To…
-      </p>
-
-      <h1 class="title">
-        Our Little Date 🖤
-      </h1>
-
-      <p class="subtitle">
-        Yes, you. The person I’d rather spend my time with.
-      </p>
-
-      <div class="cards">
-
-        <div class="card">
-          <span class="emoji">🤍</span>
-          <strong>Thursday</strong>
-        </div>
-
-        <div class="card">
-          <span class="emoji">🏠</span>
-          <strong>My Home</strong>
-        </div>
-
-        <div class="card">
-          <span class="emoji">🍗</span>
-          <strong>KFC</strong>
-        </div>
-
-        <div class="card">
-          <span class="emoji">❤️</span>
-          <strong>Red</strong>
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- KFC SECTION -->
-
-    <section>
-
-      <p class="script">
-        First things first…
-      </p>
-
-      <h2 class="title">
-        We’re Eating. 🍗❤️
-      </h2>
-
-      <div class="flirty-box">
-
-        <p>
-          Just a little reminder…<br>
-          You’re not only coming to eat KFC.<br>
-          <strong>You’re coming to eat me up too 👅</strong>
-        </p>
-
-      </div>
-
-    </section>
-
-
-    <!-- DRESS CODE -->
-
-    <section>
-
-      <h2 class="title">
-        THE DRESS CODE ❤️
-      </h2>
-
-      <div class="flirty-box">
-
-        <p>
-          <strong>RED. That’s the rule.</strong>
-          <br><br>
-          I want you wearing red.
-          <br>
-          And yes… even the little secret underneath 👙💋
-        </p>
-
-      </div>
-
-    </section>
-
-
-    <!-- RULES -->
-
-    <section>
-
-      <h2 class="title">
-        Before You Say Yes… 👀
-      </h2>
-
-      <div class="rules">
-
-        <div class="rule">
-          🍗 <strong>Rule #1</strong><br>
-          Come hungry. Very important.
-        </div>
-
-        <div class="rule">
-          ❤️ <strong>Rule #2</strong><br>
-          You are required to let me spoil you. No arguments.
-        </div>
-
-        <div class="rule">
-          😏 <strong>Rule #3</strong><br>
-          No being shy with me. I’m not accepting excuses.
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- MYSTERY -->
-
-    <section>
-
-      <div class="mystery">
-
-        <h2 class="title">
-          There’s Something Else… 👀
-        </h2>
-
-        <button
-          class="main-btn"
-          id="revealBtn"
-          onclick="revealQuestion()">
-          Reveal the Last Message 💌
-        </button>
-
-        <div id="questionArea" class="hidden">
-
-          <div class="question">
-            Will you be my date? 🥹❤️
-          </div>
-
-          <div class="choice-area">
-
-            <button
-              class="yes-btn"
-              onclick="sayYes()">
-              Yes, Of Course ❤️
-            </button>
-
-            <button
-              class="no-btn"
-              id="noBtn"
-              onclick="moveNo()">
-              No
-            </button>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-  </main>
-
-
-  <!-- FINAL CONFIRMATION -->
-
-  <section
-    id="confirmation"
-    class="confirmation hidden">
-
-    <div class="confirm-card">
-
-      <h2>
-        DATE CONFIRMED. 💌
-      </h2>
-
-      <p class="subtitle">
-        Okay, it’s official.
-        <br>
-        Your Thursday plans are officially booked. ❤️
-      </p>
-
-      <div class="details">
-
-        <strong>Thursday 🤍</strong><br>
-        My Home 🏠<br>
-        KFC 🍗<br>
-        Red Dress Code ❤️<br>
-        Me + You 🖤
-
-      </div>
-
-      <div class="final-message">
-        See you Thursday, baby soso ❤️
-      </div>
-
-    </div>
-
-  </section>
-
-</div>
-
+<!-- Floating hearts -->
+<script>
+for (let i = 0; i < 35; i++) {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "♡";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (8 + Math.random() * 10) + "s";
+    heart.style.animationDelay = Math.random() * 8 + "s";
+    heart.style.fontSize = (12 + Math.random() * 18) + "px";
+    document.body.appendChild(heart);
+}
+</script>
 
 <!-- MUSIC BUTTON -->
+<button class="music" id="musicBtn" onclick="toggleMusic()">🎵</button>
 
-<div class="music">
-  <button onclick="toggleMusic()" id="musicBtn">
-    🎵
-  </button>
-</div>
+<!-- YouTube player -->
+<div id="youtubePlayer"></div>
 
-<!-- Put your own MP3 file in the same GitHub folder and name it music.mp3 -->
-<audio id="music" loop>
-  <source src="music.mp3" type="audio/mpeg">
-</audio>
+<!-- PAGE 1 -->
+<section class="page active" id="page1">
+    <div class="content">
+
+        <h1>💌</h1>
+
+        <h2>You Have a Special Invitation</h2>
+
+        <p>
+            Something special is waiting for you...
+        </p>
+
+        <div class="envelope"></div>
+
+        <button onclick="openInvitation()">
+            Open Your Invitation 🤍
+        </button>
+
+    </div>
+</section>
+
+
+<!-- PAGE 2 -->
+<section class="page" id="page2">
+    <div class="content">
+
+        <h2>You Are Officially Invited To…</h2>
+
+        <h1>Our Little Date 🖤</h1>
+
+        <p>
+            Yes, you.<br>
+            The person I'd rather spend my time with. ❤️
+        </p>
+
+        <div class="date-grid">
+
+            <div class="date-card">
+                <b>Thursday 🤍</b>
+            </div>
+
+            <div class="date-card">
+                <b>My Home 🏠</b>
+            </div>
+
+            <div class="date-card">
+                <b>KFC 🍗</b>
+            </div>
+
+            <div class="date-card">
+                <b>Red ❤️</b>
+            </div>
+
+        </div>
+
+        <button onclick="nextPage(3)">
+            Continue ❤️
+        </button>
+
+    </div>
+</section>
+
+
+<!-- PAGE 3 -->
+<section class="page" id="page3">
+    <div class="content">
+
+        <h2>First Things First… 🍗❤️</h2>
+
+        <div class="card">
+
+            <h2>KFC DATE 🍗</h2>
+
+            <p>
+                We're obviously starting with food.
+            </p>
+
+            <p class="flirty">
+                Just a little reminder…<br><br>
+                You're not only coming to eat KFC.<br>
+                You're coming to eat me up too 👅❤️
+            </p>
+
+        </div>
+
+        <button onclick="nextPage(4)">
+            Keep Going 👀
+        </button>
+
+    </div>
+</section>
+
+
+<!-- PAGE 4 -->
+<section class="page" id="page4">
+    <div class="content">
+
+        <h2>THE DRESS CODE ❤️</h2>
+
+        <div class="card">
+
+            <h1>RED.</h1>
+
+            <p>
+                That's the rule.
+            </p>
+
+            <p class="flirty">
+                I want you wearing red.
+                <br><br>
+                And yes… even the little secret underneath 👙💋
+            </p>
+
+        </div>
+
+        <button onclick="nextPage(5)">
+            Okay… 👀
+        </button>
+
+    </div>
+</section>
+
+
+<!-- PAGE 5 -->
+<section class="page" id="page5">
+    <div class="content">
+
+        <h2>Before You Say Yes… 👀</h2>
+
+        <div class="rule">
+            ❤️ <b>Rule #1</b><br>
+            Come hungry. Very important. 🍗
+        </div>
+
+        <div class="rule">
+            ❤️ <b>Rule #2</b><br>
+            You are required to let me spoil you.
+            No arguments.
+        </div>
+
+        <div class="rule">
+            ❤️ <b>Rule #3</b><br>
+            You have to give me attention.
+            A lot of it. 😌
+        </div>
+
+        <button onclick="nextPage(6)">
+            There's Something Else… 👀
+        </button>
+
+    </div>
+</section>
+
+
+<!-- PAGE 6 -->
+<section class="page" id="page6">
+    <div class="content">
+
+        <h2>There's Something Else… 👀</h2>
+
+        <p>
+            I saved the most important question for last.
+        </p>
+
+        <button onclick="revealQuestion()">
+            Reveal the Last Message 💌
+        </button>
+
+        <div id="question" class="hidden">
+
+            <h1 style="animation:pop .5s ease">
+                Will you be my date? 🥹❤️
+            </h1>
+
+            <button class="yes" onclick="sayYes()">
+                Yes, Of Course ❤️
+            </button>
+
+            <button class="no" id="noBtn" onclick="moveNo()">
+                No
+            </button>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- PAGE 7 -->
+<section class="page" id="page7">
+    <div class="content">
+
+        <h1>💌❤️✨</h1>
+
+        <h2>DATE CONFIRMED.</h2>
+
+        <p class="final">
+            Okay, it's official. 🥹❤️
+        </p>
+
+        <p>
+            Your Thursday plans are officially booked.
+        </p>
+
+        <div class="card">
+
+            <p><b>Thursday 🤍</b></p>
+            <p>My Home 🏠</p>
+            <p>KFC 🍗</p>
+            <p>Red Dress Code ❤️</p>
+            <p>Me + You 🖤</p>
+
+        </div>
+
+        <h2>
+            See you Thursday, baby soso ❤️
+        </h2>
+
+    </div>
+</section>
 
 
 <script>
+let currentPage = 1;
 
-/* FLOATING HEARTS */
+function showPage(number) {
 
-const heartsContainer =
-  document.getElementById("hearts");
+    document.querySelectorAll(".page").forEach(page => {
+        page.classList.remove("active");
+    });
 
-for (let i = 0; i < 40; i++) {
+    document.getElementById("page" + number).classList.add("active");
 
-  const heart = document.createElement("div");
+    currentPage = number;
 
-  heart.className = "heart";
+    if (number > 1) {
+        document.getElementById("musicBtn").style.display = "block";
+    }
 
-  heart.innerHTML =
-    Math.random() > .5 ? "♡" : "♥";
-
-  heart.style.left =
-    Math.random() * 100 + "%";
-
-  heart.style.fontSize =
-    (10 + Math.random() * 18) + "px";
-
-  heart.style.animationDuration =
-    (8 + Math.random() * 12) + "s";
-
-  heart.style.animationDelay =
-    Math.random() * 12 + "s";
-
-  heartsContainer.appendChild(heart);
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
 }
-
-
-/* OPEN INVITATION */
 
 function openInvitation() {
-
-  const envelope =
-    document.getElementById("envelope");
-
-  envelope.classList.add("open");
-
-  createHeartBurst();
-
-  setTimeout(() => {
-
-    document
-      .getElementById("intro")
-      .classList.add("hidden");
-
-    document
-      .getElementById("mainContent")
-      .classList.remove("hidden");
-
-    window.scrollTo(0, 0);
-
-  }, 900);
+    showPage(2);
 }
 
-
-/* REVEAL QUESTION */
+function nextPage(number) {
+    showPage(number);
+}
 
 function revealQuestion() {
-
-  document
-    .getElementById("revealBtn")
-    .classList.add("hidden");
-
-  document
-    .getElementById("questionArea")
-    .classList.remove("hidden");
-
-  createHeartBurst();
+    document.getElementById("question").classList.remove("hidden");
 }
-
-
-/* FUNNY NO BUTTON */
 
 function moveNo() {
 
-  const button =
-    document.getElementById("noBtn");
+    const btn = document.getElementById("noBtn");
 
-  const x =
-    (Math.random() * 220) - 110;
+    const x = Math.random() * 180 - 90;
+    const y = Math.random() * 150 - 75;
 
-  const y =
-    (Math.random() * 130) - 65;
-
-  button.style.transform =
-    `translate(${x}px, ${y}px)`;
-
-  createSmallHeart();
+    btn.style.transform =
+        `translate(${x}px, ${y}px)`;
 }
-
-
-/* YES */
 
 function sayYes() {
 
-  createHeartBurst();
+    showPage(7);
 
-  setTimeout(() => {
+    for (let i = 0; i < 45; i++) {
 
-    document
-      .getElementById("mainContent")
-      .classList.add("hidden");
+        const heart = document.createElement("div");
 
-    document
-      .getElementById("confirmation")
-      .classList.remove("hidden");
+        heart.innerHTML = ["❤️","💗","💕","✨","💖"]
+            [Math.floor(Math.random() * 5)];
 
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
+        heart.style.position = "fixed";
+        heart.style.left = "50%";
+        heart.style.top = "50%";
+        heart.style.fontSize =
+            (15 + Math.random() * 25) + "px";
+
+        heart.style.zIndex = "100";
+        heart.style.pointerEvents = "none";
+
+        document.body.appendChild(heart);
+
+        const x = (Math.random() - .5) * 500;
+        const y = (Math.random() - .5) * 500;
+
+        heart.animate(
+            [
+                {
+                    transform: "translate(-50%,-50%) scale(.3)",
+                    opacity: 1
+                },
+                {
+                    transform:
+                    `translate(${x}px, ${y}px) scale(1.5)`,
+                    opacity: 0
+                }
+            ],
+            {
+                duration: 1500,
+                easing: "ease-out"
+            }
+        );
+
+        setTimeout(() => heart.remove(), 1500);
+    }
+}
+
+
+/* =========================
+   YOUTUBE MUSIC
+========================= */
+
+let player;
+let musicPlaying = false;
+
+function onYouTubeIframeAPIReady() {
+
+    player = new YT.Player("youtubePlayer", {
+
+        height: "1",
+        width: "1",
+
+        videoId: "dL-UJdNSw7U",
+
+        playerVars: {
+            autoplay: 0,
+            controls: 0,
+            loop: 1,
+            playlist: "dL-UJdNSw7U",
+            playsinline: 1
+        },
+
+        events: {
+            onReady: function() {}
+        }
+
     });
-
-  }, 700);
 }
-
-
-/* BIG HEART BURST */
-
-function createHeartBurst() {
-
-  const symbols = [
-    "❤️",
-    "💗",
-    "💕",
-    "💖",
-    "💘",
-    "✨"
-  ];
-
-  for (let i = 0; i < 30; i++) {
-
-    const heart =
-      document.createElement("div");
-
-    heart.className = "burst";
-
-    heart.innerHTML =
-      symbols[Math.floor(Math.random() * symbols.length)];
-
-    heart.style.left =
-      "50%";
-
-    heart.style.top =
-      "50%";
-
-    heart.style.setProperty(
-      "--x",
-      ((Math.random() * 600) - 300) + "px"
-    );
-
-    heart.style.setProperty(
-      "--y",
-      ((Math.random() * 700) - 350) + "px"
-    );
-
-    heart.style.setProperty(
-      "--r",
-      ((Math.random() * 360) - 180) + "deg"
-    );
-
-    document.body.appendChild(heart);
-
-    setTimeout(() => {
-      heart.remove();
-    }, 1600);
-  }
-}
-
-
-/* SMALL HEART CLICK */
-
-function createSmallHeart() {
-
-  const heart =
-    document.createElement("div");
-
-  heart.className = "burst";
-  heart.innerHTML = "❤️";
-
-  heart.style.left =
-    Math.random() * 80 + 10 + "%";
-
-  heart.style.top =
-    Math.random() * 60 + 20 + "%";
-
-  heart.style.setProperty(
-    "--x",
-    ((Math.random() * 160) - 80) + "px"
-  );
-
-  heart.style.setProperty(
-    "--y",
-    ((Math.random() * 160) - 80) + "px"
-  );
-
-  document.body.appendChild(heart);
-
-  setTimeout(() => {
-    heart.remove();
-  }, 1600);
-}
-
-
-/* MUSIC */
-
-const music =
-  document.getElementById("music");
-
-const musicBtn =
-  document.getElementById("musicBtn");
 
 function toggleMusic() {
 
-  if (music.paused) {
+    if (!player) {
+        alert("Please wait a second and try again ❤️");
+        return;
+    }
 
-    music.play()
-      .then(() => {
-        musicBtn.innerHTML = "⏸️";
-      })
-      .catch(() => {
-        alert(
-          "Add a file named music.mp3 to your GitHub folder first ❤️"
-        );
-      });
+    if (!musicPlaying) {
 
-  } else {
+        player.playVideo();
 
-    music.pause();
-    musicBtn.innerHTML = "🎵";
+        musicPlaying = true;
 
-  }
+        document.getElementById("musicBtn").innerHTML = "🔊";
+
+    } else {
+
+        player.pauseVideo();
+
+        musicPlaying = false;
+
+        document.getElementById("musicBtn").innerHTML = "🎵";
+    }
 }
-
 </script>
+
+<!-- YouTube API -->
+<script src="https://www.youtube.com/iframe_api"></script>
 
 </body>
 </html>
